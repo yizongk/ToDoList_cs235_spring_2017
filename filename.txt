@@ -1,0 +1,7 @@
+G|03/01/1997|a the first one
+G|12/31/2005|c the second one
+G|04/01/2009|b the thrid one
+G|22/22/2222|d dick all over the place
+E|05/06/2005|e an Event for Mike's Birthday|Mike's house|23::00PM
+H|03/01/1997|z a homeowkr onthe day I was born|MATH
+S|04/11/2017|Shopping Day @ Manhattan Mall|Socks|3 Sweaters (Blue, Green &Red)|Dessert Boots
