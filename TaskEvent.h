@@ -9,7 +9,6 @@ class EventTask : public Task {
   EventTask(Task a);
   ~EventTask();
 
-  std::string status() const;
   std::string type() const;
   Date dueDate() const;  
   std::string description() const;
@@ -24,7 +23,6 @@ class EventTask : public Task {
   friend std::ostream& operator<<(std::ostream& a, const EventTask& rhs);
 
  private:
-  std::string _status;  
   std::string _type;
   Date _dueDate;
   std::string _description;

@@ -3,7 +3,6 @@
 
 
 HomeworkTask::HomeworkTask(Task a) {
-  _status = a.status(); 
   _type = a.type();
   _dueDate = a.dueDate();
   _description = a.description(); 
@@ -20,10 +19,6 @@ std::ostream& operator<<(std::ostream& a, const HomeworkTask& rhs) {
   a << "    SUBJECT: 	" << rhs._subject << std::endl;
   
   return a;
-}
-
-std::string HomeworkTask::status() const {
-  return _status;
 }
 
 std::string HomeworkTask::type() const {

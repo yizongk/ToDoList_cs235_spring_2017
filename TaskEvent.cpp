@@ -4,13 +4,11 @@
 
 
 EventTask::EventTask() {
-  _status = "";
   _type = "";
   _description = "";
 }
 
 EventTask::EventTask(Task a) {
-  _status = a.status(); 
   _type = a.type();
   _dueDate = a.dueDate();
   _description = a.description(); 
@@ -29,10 +27,6 @@ std::ostream& operator<<(std::ostream& a, const EventTask& rhs) {
 
   return a;
 
-}
-
-std::string EventTask::status() const {
-  return _status;
 }
 
 std::string EventTask::type() const {

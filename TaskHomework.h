@@ -10,7 +10,6 @@ class HomeworkTask : public Task {
 
   friend std::ostream& operator<<(std::ostream& a, const HomeworkTask& rhs); 
 
-  std::string status() const;
   std::string type() const;
   Date dueDate() const;  
   std::string description() const;
@@ -21,7 +20,6 @@ class HomeworkTask : public Task {
   void set_subject(std::string a);
 
  private:
-  std::string _status;  
   std::string _type;
   Date _dueDate;
   std::string _description;

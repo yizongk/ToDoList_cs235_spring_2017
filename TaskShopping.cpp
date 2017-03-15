@@ -2,7 +2,6 @@
 #include <iostream>
 
 ShoppingTask::ShoppingTask(Task a) {
-  _status = a.status(); 
   _type = a.type();
   _dueDate = a.dueDate();
   _description = a.description(); 
@@ -79,10 +78,6 @@ void ShoppingTask::input_from_line(std::string line) {
       line.erase(line.begin());
     }
   }
-}
-
-std::string ShoppingTask::status() const {
-  return _status;
 }
 
 std::string ShoppingTask::type() const {

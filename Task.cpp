@@ -4,7 +4,6 @@
 #include "TaskHomework.h"
 
 Task::Task() {
-  _status = "Outstanding";
   _type = "Generic";
   Date _dueDate; 		
   _description = "Default Task, no description avaliable.";
@@ -12,13 +11,11 @@ Task::Task() {
 
 Task::Task(std::string des) 
     : _dueDate(1,2,3) {
-  _status = "Outstanding";
   _type = "Generic";
   _description = des;
 }
 
 Task::Task(const Task& rhs) {
-  _status = rhs._status;
   _type = rhs._type;
   _description = rhs._description;
   _dueDate = rhs._dueDate;
@@ -53,10 +50,6 @@ std::ostream& operator<<(std::ostream& a, const Task& rhs) {
 
   a << rhs.dueDate() << " - [" << rhs.type() << "] 	" << rhs.description() << " -> "; 
   return a;
-}
-
-std::string Task::status() const {
-  return _status;
 }
 
 std::string Task::type() const {
@@ -108,10 +101,6 @@ void Task::input_from_line(std::string line) {
       line.erase(line.begin());
     }
   }
-}
-
-void Task::setStatus(std::string a) {
-  _status = a;
 }
 
 void Task::setType(std::string a) {
