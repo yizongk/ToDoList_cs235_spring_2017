@@ -1,3 +1,13 @@
+/***************************************************************
+Title: To Do List
+Author: Yi Zong Kuang
+Date Created: mid feb 2017
+Class: Spring 2017, CSCI 235, Mon & Wed 5:35pm-6:50pm
+Professor: Michael Garod
+Purpose: Project 2 - To Do List
+Description: Codes a sorted link list, which is a wrapper around a link list, but will find the right place to insert into the list so that it's sorted by date then alphebet
+***************************************************************/
+
 #ifndef SORTEDLINKEDLIST_H
 #define SORTEDLINKEDLIST_H
 
@@ -16,6 +26,7 @@ class SortedLinkedList {
  public:
   friend std::ostream& operator<< <T>(std::ostream& a, const SortedLinkedList<T>& rhs);
 
+  unsigned int find_alphebet(node<T>* current , T* a);
   unsigned int find(T* a);
   void insert(node<T>* a, unsigned int position); 
   void remove(unsigned int position); 
@@ -25,7 +36,6 @@ class SortedLinkedList {
   node<T>* get_node(int i);
   void transfer(SortedLinkedList<T>& targetlist, int i); 
   void clear();
-
 
  private:
   Linklist<T> _list;
@@ -38,53 +48,106 @@ template <typename T> std::ostream& operator<<(std::ostream& a, const SortedLink
   return a;
 }
 
-template <typename T> unsigned int SortedLinkedList<T>::find(T* a) {
-  if (_list.list_count() == 0) {		//acounts for empty list, will then behave differently in insert()
+template <typename T> unsigned int SortedLinkedList<T>::find_alphebet(node<T>* current , T* a ) {			//will only ever be called by find()
+  node<T>* itr = current;
+  unsigned int index = 0;
+  //case for a's description[0] smaller than current's description[0]
+  if ( (a->description()[0]%65)%32 < (itr->data->description()[0]%65)%32 ) {
     return 0;
   }
 
-  node<T>* itr = _list.get_head();
+  for (;itr->data->dueDate().difference() == a->dueDate().difference(); itr = itr->p_next, ++index) {
+    node<T>* itr_next = itr->p_next;
 
-  for (unsigned int i = 0; itr != NULL; i++) {					//since list will be in smallest to largest number, hence latest to future
-    if ( itr->data->dueDate().difference() == a->dueDate().difference() ) {		//ONLY BUG IS if NUMBER IS LEADING, that will mess up order
-      node<T>* itr2 = itr;
-      for (unsigned int j = i; itr2 !=NULL; j++) {
-        if ( ( itr->data->dueDate().difference() == a->dueDate().difference() ) and ( ((itr2->data->description()[0]) % 65 ) % 32 >= ((a->description()[0]) % 65 )%32) ) { 
-		std::cout<< "if ran" <<std::endl;
-		std::cout<< int((itr2->data->description()[0]%65)%33) << " >= " << int((a->description()[0]%65)%33) << " --"<<i+j << std::endl;
-          return (j + i);						//inner check for same difference of days, then chk for order of alphabet, other wise return i
-        }
-
-        if(itr2->p_next == NULL) {
-          std::cout<< "NULL ran with: " << j+i+1 <<std::endl;
-          return (j + i + 1);
-        }
-        itr2 = itr2->p_next;
-      } 				
+    //if end of list
+    if(itr_next == NULL) {
+      if ( (a->description()[0]%65)%32 <= (itr->data->description()[0]%65)%32 ) {  
+        return index;
+      }      
+      if ( (a->description()[0]%65)%32 > (itr->data->description()[0]%65)%32 ) {    
+        return ++index;
+      }
     }
-
-    if ( itr->data->dueDate().difference() > a->dueDate().difference() ) {
-      std::cout<< "2nd if: "<< std::endl;
-      return i;
-    }    
-
-    itr = itr->p_next;
+    
+    //Will chk both front and back of any index of the list to find the right index to insert.
+    if ( (a->description()[0]%65)%32 > (itr->data->description()[0]%65)%32 and (a->description()[0]%65)%32 < (itr_next->data->description()[0]%65)%32 ) { 
+      return ++index;
+    }
+    //if element being chked are the same
+    if ( (a->description()[0]%65)%32 == (itr->data->description()[0]%65)%32 ) { 	
+      return index;
+    }
   }
-  
-  return _list.list_count();
+
+  //when dueDate.difference() is not same anymore.
+  if (itr->data->dueDate().difference() != a->dueDate().difference()) {
+    return index;
+  }
+
+  //default return, should never be called
+  return 0;
 }
 
-template <typename T> void SortedLinkedList<T>::remove(unsigned int position) {
+template <typename T> unsigned int SortedLinkedList<T>::find(T* a) {
+  unsigned int index = 0;
+  node<T>* itr = _list.get_head();
+
+  //if list is empty, then insert at first place
+  if (_list.list_count() == 0) {  						
+    return 0;
+  }
+
+  //first case of being earlier than the head's duedate
+  if (a->dueDate().difference() < itr->data->dueDate().difference()) {    	
+    return 0;
+  }
+
+  //Will chk both front and back of any index of the list to find the right index to insert.
+  for (;itr != NULL; itr = itr->p_next, ++index) {
+    node<T>* itr_next = itr->p_next;
+
+    //in the case of chking that last element of the list
+    if (itr_next == NULL) {
+      if ( a->dueDate().difference() <= itr->data->dueDate().difference() ) {  	
+        if (a->dueDate().difference() == itr->data->dueDate().difference()) {
+          unsigned int tempindex = find_alphebet(itr, a);
+          index += tempindex;
+        }
+        return index;
+      }      
+      if ( a->dueDate().difference() > itr->data->dueDate().difference() ) {    
+        return ++index;
+      }
+    }
+
+    //rest of the cases, where it chk both front and next of each element of the list
+    if (a->dueDate().difference() > itr->data->dueDate().difference() and a->dueDate().difference() < itr_next->data->dueDate().difference()) { 
+      return ++index;
+    }
+    //if element being chked are the same
+    if (a->dueDate().difference() == itr->data->dueDate().difference()) { 	
+      if (a->dueDate().difference() == itr->data->dueDate().difference()) {
+          unsigned int tempindex = find_alphebet(itr, a);
+          index += tempindex;
+      }
+      return index;
+    }
+  }
+  //default return, shouldn't ever be called
+  return index;
+}
+
+template <typename T> void SortedLinkedList<T>::remove(unsigned int position) {		//remove the node at a given index
   _list.remove(position);
 }
 
-template <typename T> void SortedLinkedList<T>::insert(node<T>* a, unsigned int position) {
+template <typename T> void SortedLinkedList<T>::insert(node<T>* a, unsigned int position) {	//insert a node at a given index
   _list.insert(a,position);
 }
 
 template <typename T> void SortedLinkedList<T>::push_in(T* a) {
   unsigned int i = find(a);			//find the correct position to insert, then call insert fct
-  node<T>* temp = _list.create_node(a);         
+  node<T>* temp = _list.create_node(a);   
   _list.insert(temp,i);
 }
 
@@ -92,15 +155,15 @@ template <typename T> unsigned int SortedLinkedList<T>::list_count() {
     return _list.list_count();
 }
 
-template <typename T> void SortedLinkedList<T>::print(bool detailed) {
+template <typename T> void SortedLinkedList<T>::print(bool detailed) {    	//false means print, true means detailed print
   _list.print(detailed);
 }
 
-template <typename T> node<T>* SortedLinkedList<T>::get_node(int i) {
+template <typename T> node<T>* SortedLinkedList<T>::get_node(int i) {		//return a node from the list with a given index
   return _list.get_node(i);
 }
 
-template <typename T> void SortedLinkedList<T>::transfer(SortedLinkedList<T>& targetlist, int i) {
+template <typename T> void SortedLinkedList<T>::transfer(SortedLinkedList<T>& targetlist, int i) {	//transfer node from one list to another, not copying the node, it's merely playing with poiner
   node<T>* ptr = this->get_node(i);
   
   if (i == 1) {
@@ -134,7 +197,7 @@ template <typename T> void SortedLinkedList<T>::transfer(SortedLinkedList<T>& ta
   return;
 }
 
-template <typename T> void SortedLinkedList<T>::clear() {
+template <typename T> void SortedLinkedList<T>::clear() {		//clears list of dynamically allocated memory
   _list.clear();
 }
 #endif

@@ -1,3 +1,13 @@
+/***************************************************************
+Title: To Do List
+Author: Yi Zong Kuang
+Date Created: mid feb 2017
+Class: Spring 2017, CSCI 235, Mon & Wed 5:35pm-6:50pm
+Professor: Michael Garod
+Purpose: Project 2 - To Do List
+Description: Codes for the parent class of all the different type of task that we will be saving.
+***************************************************************/
+
 #include "Task.h"
 #include "TaskShopping.h"
 #include "TaskEvent.h"
@@ -25,7 +35,7 @@ Task::~Task() {
 
 }
 
-std::ostream& operator<<(std::ostream& a, const Task& rhs) {
+std::ostream& operator<<(std::ostream& a, const Task& rhs) {		//will dyanmically cast the proper subclass object to know which one to call << on
 
   if (rhs.type() == "Shopping") {
     const Task* base = &rhs;
@@ -64,7 +74,7 @@ std::string Task::description() const {
   return _description;
 }
 
-void Task::input_from_line(std::string line) {
+void Task::input_from_line(std::string line) {		//read a single line from a file-text-input, and constructs a properly formated object
   std::string data = "";
   int counter = 0;
   while(line.size() != 0) {

@@ -1,3 +1,13 @@
+/***************************************************************
+Title: To Do List
+Author: Yi Zong Kuang
+Date Created: mid feb 2017
+Class: Spring 2017, CSCI 235, Mon & Wed 5:35pm-6:50pm
+Professor: Michael Garod
+Purpose: Project 2 - To Do List
+Description: Codes for the definition of class Task Shopping
+***************************************************************/
+
 #include "TaskShopping.h"
 #include <iostream>
 
@@ -31,11 +41,11 @@ std::ostream& operator<<(std::ostream& a, const ShoppingTask& rhs) {
   return a;
 }
 
-void ShoppingTask::add_list(std::string* a) {
+void ShoppingTask::add_list(std::string* a) {		//stores shopping list items into self-coded linkedlist
   _shoplist.push_front(a);
 }
 
-void ShoppingTask::input_from_line(std::string line) {
+void ShoppingTask::input_from_line(std::string line) {	//Reads a single line from a text-file-input, formate it into a proper ShoppingTask object.
   std::string data = "";
   int counter = 0;
   while(line.size() != 0) {
@@ -92,7 +102,7 @@ std::string ShoppingTask::description() const {
   return _description;
 }
 
-node<std::string>* ShoppingTask::getlisthead() {
+node<std::string>* ShoppingTask::getlisthead() { 	//return head of the shopping list
   return _shoplist.get_node(1);;
 }
 

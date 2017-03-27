@@ -1,3 +1,13 @@
+/***************************************************************
+Title: To Do List
+Author: Yi Zong Kuang
+Date Created: mid feb 2017
+Class: Spring 2017, CSCI 235, Mon & Wed 5:35pm-6:50pm
+Professor: Michael Garod
+Purpose: Project 2 - To Do List
+Description: Codes for the class Task Shopping, which inherites from generic task, has a linklist variable to store the list of item to be shopped.
+***************************************************************/
+
 #ifndef TASK_SHOPPING_H
 #define TASK_SHOPPING_H
 

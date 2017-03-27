@@ -1,3 +1,13 @@
+/***************************************************************
+Title: To Do List
+Author: Yi Zong Kuang
+Date Created: mid feb 2017
+Class: Spring 2017, CSCI 235, Mon & Wed 5:35pm-6:50pm
+Professor: Michael Garod
+Purpose: Project 2 - To Do List
+Description: Definition for the class Date
+***************************************************************/
+
 #include "Date.h"
 
 Date::Date() {
@@ -24,7 +34,7 @@ int Date::year() const {
   return _year;
 }
 
-int Date::difference() {
+int Date::difference() {			//return the rough estimate of the total day count converted from months and years.
   int temp;
   temp = day();
   temp = temp + ( 30 * month() );		//convert month to day count
@@ -58,16 +68,16 @@ void Date::set_year(int y) {
   _year = y;
 }
 
-int Date::returnInt(char a) {
-  int temp = a - '0';
+int Date::returnInt(char a) {			//return the ascii code for a character
+  int temp = a - '0';  
   return temp;
 }
 
-void Date::stringToInt(std::string a) {
+void Date::stringToInt(std::string a) {		//return a properly formated Date object from a line of properly formated text.
   int month;
   month = returnInt(a[0]) * 10;
   month = month + returnInt(a[1]);
-  _month = month;
+  _month = month;	
 
   int day;
   day = returnInt(a[3]) * 10;
@@ -82,20 +92,20 @@ void Date::stringToInt(std::string a) {
   _year = year;
 }
 
-int Date::returnNumOfDigits(int a) const {
+int Date::returnNumOfDigits(int a) const {		//will return the number of digits to assite in constructing a properly formated Date object.
   if (a < 0) {
     return 0;
   }
 
   int numofdigits = 1;
-  for (int i = 1; a/i > 10; i *= 10) {			//will checks for number of digits
+  for (int i = 1; a/i >= 10; i *= 10) {			//will checks for number of digits
     ++numofdigits; 
   }
   
   return numofdigits;
 }
 
-std::string Date::intToString(int a) const {
+std::string Date::intToString(int a) const {		//converts intergers into strings, 45 will be "45"
   std::string stringvalue = "";
   int numberofdigits = returnNumOfDigits(a);
   if (numberofdigits == 0) {

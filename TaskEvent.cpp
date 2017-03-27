@@ -1,3 +1,13 @@
+/***************************************************************
+Title: To Do List
+Author: Yi Zong Kuang
+Date Created: mid feb 2017
+Class: Spring 2017, CSCI 235, Mon & Wed 5:35pm-6:50pm
+Professor: Michael Garod
+Purpose: Project 2 - To Do List
+Description: Codes for the definition of class Task Event
+***************************************************************/
+
 #include "TaskEvent.h"
 #include <iostream>
 
@@ -56,7 +66,7 @@ std::string EventTask::time() {
   return _time;
 }
 
-void EventTask::input_from_line(std::string line) {
+void EventTask::input_from_line(std::string line) { 	//Constructs a proper Event object from a single line of text from text-input-file
   std::string data = "";
   int counter = 0;
   while(line.size() != 0) {

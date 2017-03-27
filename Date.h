@@ -1,3 +1,13 @@
+/***************************************************************
+Title: To Do List
+Author: Yi Zong Kuang
+Date Created: mid feb 2017
+Class: Spring 2017, CSCI 235, Mon & Wed 5:35pm-6:50pm
+Professor: Michael Garod
+Purpose: Project 2 - To Do List
+Description: Codes for the class Date, which will be present in all task as a way for sorting.
+***************************************************************/
+
 #ifndef DATE_H
 #define DATE_H
 #include <iostream>

@@ -1,3 +1,13 @@
+/***************************************************************
+Title: To Do List
+Author: Yi Zong Kuang
+Date Created: mid feb 2017
+Class: Spring 2017, CSCI 235, Mon & Wed 5:35pm-6:50pm
+Professor: Michael Garod
+Purpose: Project 2 - To Do List
+Description: Codes for linkedlist class, uses nodes as the storage unit
+***************************************************************/
+
 #ifndef LINKLIST_H
 #define LINKLIST_H
 
@@ -5,6 +15,7 @@
 #include <cstddef>
 #include "Task.h"
 #include "Node.hxx"
+#include "colortext.h"
 
 template <typename T> class Linklist;
 template <typename T> std::ostream& operator<<(std::ostream&, const Linklist<T>&);
@@ -57,7 +68,7 @@ template <typename T> std::ostream& operator<<(std::ostream& a, const Linklist<T
 }
 
 
-template <typename T> void Linklist<T>::push_front(T* a) {  //not actually push back, but place infront, and push rest of link back.
+template <typename T> void Linklist<T>::push_front(T* a) {  //push in front, and push rest of list back.
   node<T>* temp = new node<T>;
   temp->data = a;
   temp->p_next = _head;
@@ -76,7 +87,8 @@ template <typename T> node<T>* Linklist<T>::get_head() {
   return _head;
 }
 
-template <typename T> void Linklist<T>::insert(node<T>* a, unsigned int position) {	//itr is always one node ahead of itr_pre
+//insert into a list with the provided index
+template <typename T> void Linklist<T>::insert(node<T>* a, unsigned int position) {	//itr is always one node ahead of itr_pre, this fct starts count from 0
   if (_list_count == 0) {
     _head = a;
     _list_count++;
@@ -84,7 +96,7 @@ template <typename T> void Linklist<T>::insert(node<T>* a, unsigned int position
   }
 
   if (position > _list_count) {
-    std::cout<<"possition exceed what's availiable in the list. You are trying to insert "<< position << " into " << _list_count <<std::endl;
+    std::cout<<BOLDYELLOW<<"possition exceed what's availiable in the list. You are trying to insert "<< position << " into " << _list_count <<RESET<<std::endl;
     return;
   } 
 
@@ -123,16 +135,16 @@ template <typename T> void Linklist<T>::insert(node<T>* a, unsigned int position
   return;
 }
 
-template <typename T> void Linklist<T>::remove(unsigned int position) {
-  --position;				//I designed this part to work with counting from 0. So must decrement by one.
+template <typename T> void Linklist<T>::remove(unsigned int position) {//removes a node from the linklist with the provided index
+  --position;				//I designed this part to work with counting from 0. So must decrement by one from the user's point of view.
 
   if (_list_count == 0) {
-    std::cout<<"List is empty, nothing to remove."<<std::endl;
+    std::cout<<BOLDWHITE<<"List is empty, nothing to remove."<<RESET<<std::endl;
     return;
   }
 
   if (position >= _list_count) {
-    std::cout<<"no such position"<<std::endl;
+    std::cout<<BOLDWHITE<<"no such position"<<RESET<<std::endl;
     return;
   }
   
@@ -172,11 +184,11 @@ template <typename T> void Linklist<T>::remove(unsigned int position) {
   return;
 }
 
-template <typename T> unsigned int Linklist<T>::list_count() const {
+template <typename T> unsigned int Linklist<T>::list_count() const {		//return the number of node in the linklist
   return _list_count;
 }
 
-template <typename T> void Linklist<T>::print(bool detailed) const {
+template <typename T> void Linklist<T>::print(bool detailed) const {		//false means print, true means detailed print
   int i = 1;
 
   node<T>* itr = _head; 
@@ -190,7 +202,7 @@ template <typename T> void Linklist<T>::print(bool detailed) const {
   }
 }
 
-template <typename T> node<T>* Linklist<T>::get_node(int i) {
+template <typename T> node<T>* Linklist<T>::get_node(int i) {	//return node at the index provided
   node<T>* itr = _head;
 
   for (int counter = 1; counter < i; ++counter) {    		//at i = 1, this wornt run and will return itr, which is the where _head points to.
@@ -225,15 +237,15 @@ template <typename T> void Linklist<T>::transfer(Linklist<T>& targetlist, int i,
   return;
 } 
 
-template <typename T> node<T>** Linklist<T>::get_head_ptr() {
+template <typename T> node<T>** Linklist<T>::get_head_ptr() {		//return the address of the pointer so we may change it to point to something else.
   return &_head;
 }
 
-template <typename T> void Linklist<T>::count_minus_one() {
+template <typename T> void Linklist<T>::count_minus_one() {		//for decrementing the list count, used when removing a node from the list
   --_list_count;
 }
 
-template <typename T> void Linklist<T>::clear() {
+template <typename T> void Linklist<T>::clear() {			//Cleans the linklist, by deleting all dynamically allocated memory.
   _list_count = 0;
   node<T>* itr = _head;
   _head = NULL;

@@ -1,11 +1,22 @@
+/***************************************************************
+Title: To Do List
+Author: Yi Zong Kuang
+Date Created: mid feb 2017
+Class: Spring 2017, CSCI 235, Mon & Wed 5:35pm-6:50pm
+Professor: Michael Garod
+Purpose: Project 2 - To Do List
+Description: The codes to call the appropretiate command functions. If return false, program terminates.
+***************************************************************/
+
 #include "Mainloop.h"
 #include "Command.h"
 #include "Task.h"
 #include <iostream>
 #include "Linkedlist.hxx"
 #include "SortedLinkedList.hxx"
+#include "colortext.h"
 
-bool mainloop(std::string command, SortedLinkedList<Task> &inventory, SortedLinkedList<Task> &cominventory) {
+bool mainloop(std::string command, SortedLinkedList<Task> &inventory, SortedLinkedList<Task> &cominventory) {		//This is the main program loop, when return false, program will terminate
   if (command == "add" or command == "ADD" or command == "Add") {
     Task* a = add();         
     inventory.push_in(a); 
@@ -47,8 +58,8 @@ bool mainloop(std::string command, SortedLinkedList<Task> &inventory, SortedLink
     help();
     return true;
   }
-
-  std::cout << "This command doesn't exist -> '" << command << "'  			(ʃ_⌣̀ )" << std::endl;
+  
+  std::cout <<BOLDWHITE<< "This command "<<RESET<<BOLDRED<<"doesn't exist"<<RESET<<BOLDWHITE<<" -> '" << command << "'"<<RESET<<GREEN<<"  			(ʃ_⌣̀ )" <<RESET<< std::endl;
   return true;
 }
 
