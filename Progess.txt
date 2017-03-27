@@ -1,44 +1,43 @@
 got to create inheritance on Task, thentest if different class of TASK can be stored on same linklist, then implement into program - fixed
 
-created sub class for Shopping Task, but cause segment dump, got to figure out why  - fixed
+created sub class for Shopping Task, but cause segment dump, got to figure out why  		- fixed
 
+so far seem to work, but print will cause infinite loop with wrong shopping list 		- fixed
 
+NOW it seems to have small momory leak, possible a string leak 					- fixed
 
+give print fct to all Task, to fix hwo it looks. --						-> FIXED
 
-so far seem to work, but print will cause infinite loop with wrong shopping list - fixed
+work on remove functio    									DONE
 
-
-NOW it seems to have small momory leak, possible a string leak - fixed
-
-give print fct to all Task, to fix hwo it looks. ---> FIXED
-
-work on remove functio    DONE
-
-workon getnode fct of linklist hxx...   current error, data notin scope    fixed
+workon getnode fct of linklist hxx...   current error, data notin scope    			fixed
 
 complete command *seem* to be working, got to do more test. Also got memory leak now.
-  NOTE: got rid of memoery leak, but now not copying the right sub class of TASK	FIXED
+  NOTE: got rid of memoery leak, but now not copying the right sub class of TASK		FIXED
 
-a thought just came to mind, when i set event task, it's not deleting event task, it's deleteing generic task, which should cause memory leak, but none, got to lok into that.
+a thought just came to mind, when i set event task, it's not deleting event task, it's deleteing generic task, which should cause memory leak, but none, got to lok into that. DONE, made destructor vir
 
 MAKE sure that date are organized from lastest to future, but not in the past, i think chk if it's in past, if so, add to complete or late
 
-need to make a clear function in linklist and sortedlinklist, LOAD command need this,   FIXED 
+need to make a clear function in linklist and sortedlinklist, LOAD command need this,   	FIXED 
 
-add load function into code  		fucking up and moemory leak!!!  FIXED
+add load function into code  		fucking up and moemory leak!!!  			FIXED
 
-counter for load command not incrementing for some reason... FIXED
+counter for load command not incrementing for some reason... 					FIXED
 
-I should make a function for Generic Task for inputing file and make it virtual, argument is string line (which is each line of the input file. will chk type before calling approitate fct, and type of task pointer)     DONE
+I should make a function for Generic Task for inputing file and make it virtual, argument is string line (which is each line of the input file. will chk type before calling approitate fct, and type of task pointer)     							DONE
 
 
 The sortedlist push_in doesn't work well with load, item not organized, actually same with add fct, if I did it in such a order, it wont work
   	THIS I WILLNEED TO FIX BY REWRITING FIND(A) FROM SORTEDLINKEDLISTHXX maybe, so far it's not causing a problem, so i will leave it alone for now.
-	IT LOOKS LIKE IT FUCKSUP AFTER 22/22/2222 OVERFLOW MAYBE?, it's HW with des: z
-	
- 	and because of this, you cannot use add after load, it keep saying triyng to insert 11 into 7
-
+												SEEMS TO BE FIXED
 
 NEW BUG: whentyping number to mark as complete, tpying in 1c, will prompt invlid input, but it will still savemarked complete successfuly, and it does, it looks like it's 
 treating like 1. IT LOOKS LIKE IT WILL TAKE WHATEVER LEADING NUMBER of the input
 
+NEW BUG: very last same series's last element, which is end of list, is not sorted, find and fix it in find()
+	try to fix this by using the old find () code, which workds						FIXED, using new fct
+
+NEW BUG: entering negative number on date, will go undected on input.
+
+NEW BUG: october isfucked up on print()     				FIXED
